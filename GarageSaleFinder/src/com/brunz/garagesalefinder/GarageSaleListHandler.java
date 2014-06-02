@@ -1,3 +1,14 @@
+/*
+ * ISCG7424 – Mobile Software Development
+ * Assignment 3: Garage Sales Finder
+ * Parts: All
+ * Student: Paul Shalley		(ID:1402195)
+ * Student: Renato De Mendonca	(ID:1422497)
+ * Student: Sergey Seriakov 	(ID:1405156)
+ * Teacher: Dr. John Casey
+ * 2014.
+ */
+
 package com.brunz.garagesalefinder;
 
 import android.content.Context;
@@ -15,14 +26,14 @@ import org.xml.sax.helpers.DefaultHandler;
 public class GarageSaleListHandler extends DefaultHandler {
 
     Handler handler = null;
-    GarageSaleList _list;
-    GarageSale _job;
+    GarageSaleList list;
+    GarageSale sale;
     String _lastElementName = "";
     StringBuilder sb = null;
-    Context _context;
+    Context context;
 
     GarageSaleListHandler(Context c, Handler progresshandler) {
-        this._context = c;
+        this.context = c;
         if (progresshandler != null) {
             this.handler = progresshandler;
             Message msg = new Message();
@@ -39,7 +50,7 @@ public class GarageSaleListHandler extends DefaultHandler {
         if (this.handler != null) {
             this.handler.sendMessage(msg);
         }
-        return this._list;
+        return this.list;
     }
 
     @Override
@@ -52,10 +63,10 @@ public class GarageSaleListHandler extends DefaultHandler {
         }
 
         // initialize our GarageSaleList object - this will hold our parsed contents
-        this._list = new GarageSaleList(this._context);
+        this.list = new GarageSaleList(this.context);
 
         // initialize the GarageSale object
-        this._job = new GarageSale();
+        this.sale = new GarageSale();
 
     }
 
@@ -75,7 +86,7 @@ public class GarageSaleListHandler extends DefaultHandler {
         try {
             this.sb = new StringBuilder("");
 
-            if (localName.equals("job")) {
+            if (localName.equals("garagesale")) {
                 // create a new item
 
                 Message msg = new Message();
@@ -85,79 +96,72 @@ public class GarageSaleListHandler extends DefaultHandler {
                     this.handler.sendMessage(msg);
                 }
 
-                this._job = new GarageSale();
+                this.sale = new GarageSale();
 
             }
         } catch (Exception ee) {
-            Log.d("CH12:startElement", ee.getStackTrace().toString());
+            Log.d("GSF:startElement", ee.getStackTrace().toString());
         }
     }
 
     @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
 
-/*
-            if (localName.equals("job")) {
-                // add our job to the list!
-                this._list.add(this._job);
-                Message msg = new Message();
-                msg.what = 0;
-                msg.obj = ("Storing Job # " + this._job.get_jobid());
-                if (this.handler != null) {
-                    this.handler.sendMessage(msg);
-                }
-
-                return;
+        if (localName.equals("garagesale")) {
+            // add our garageSale to the garageSaleList!
+            this.list.add(this.sale);
+            Message msg = new Message();
+            msg.what = 0;
+            msg.obj = ("Storing sale # " + this.sale.getId());
+            if (this.handler != null) {
+                this.handler.sendMessage(msg);
             }
 
-            if (localName.equals("id")) {
-                this._job.set_jobid(this.sb.toString());
-                return;
-            }
-            if (localName.equals("status")) {
-                this._job.set_status(this.sb.toString());
-                return;
-            }
-            if (localName.equals("customer")) {
-                this._job.set_customer(this.sb.toString());
-                return;
-            }
-            if (localName.equals("address")) {
-                this._job.set_address(this.sb.toString());
-                return;
-            }
-            if (localName.equals("city")) {
-                this._job.set_city(this.sb.toString());
-                return;
-            }
-            if (localName.equals("state")) {
-                this._job.set_state(this.sb.toString());
-                return;
-            }
-            if (localName.equals("zip")) {
-                this._job.set_zip(this.sb.toString());
-                return;
-            }
-            if (localName.equals("product")) {
-                this._job.set_product(this.sb.toString());
-                return;
-            }
-            if (localName.equals("producturl")) {
-                this._job.set_producturl(this.sb.toString());
-                return;
-            }
-            if (localName.equals("comments")) {
-                this._job.set_comments(this.sb.toString());
-                return;
-            }
-*/
+            return;
+        }
+
+        if (localName.equals("id")) {
+            this.sale.setId(this.sb.toString());
+            return;
+        }
+        if (localName.equals("address")) {
+            this.sale.setAddress(this.sb.toString());
+            return;
+        }
+        if (localName.equals("suburb")) {
+            this.sale.setSuburb(this.sb.toString());
+            return;
+        }
+        if (localName.equals("geocode")) {
+            this.sale.setGeocode(this.sb.toString());
+            return;
+        }
+        if (localName.equals("description")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setDescription(this.sb.toString().replace("&", ""));
+            else
+                this.sale.setDescription(this.sb.toString());
+            return;
+        }
+        if (localName.equals("date")) {
+            this.sale.setDate(this.sb.toString());
+            return;
+        }
+        if (localName.equals("time")) {
+            this.sale.setTime(this.sb.toString());
+            return;
+        }
+        if (localName.equals("region")) {
+            this.sale.setRegion(this.sb.toString());
+            return;
+        }
 
     }
 
     @Override
     public void characters(char ch[], int start, int length) {
         String theString = new String(ch, start, length);
-        Log.d("CH12", "characters[" + theString + "]");
+        Log.d("GFS", "characters[" + theString + "]");
         this.sb.append(theString);
     }
 }

@@ -1,3 +1,14 @@
+/*
+ * ISCG7424 – Mobile Software Development
+ * Assignment 3: Garage Sales Finder
+ * Parts: All
+ * Student: Paul Shalley		(ID:1402195)
+ * Student: Renato De Mendonca	(ID:1422497)
+ * Student: Sergey Seriakov 	(ID:1405156)
+ * Teacher: Dr. John Casey
+ * 2014.
+ */
+
 package com.brunz.garagesalefinder;
 
 import android.content.Context;
@@ -28,8 +39,8 @@ public class GarageSaleList {
         this.list = new Vector<GarageSale>(0);
     }
 
-    int add(GarageSale job) {
-        this.list.add(job);
+    int add(GarageSale garageSale) {
+        this.list.add(garageSale);
         return this.list.size();
     }
 
@@ -45,15 +56,14 @@ public class GarageSaleList {
         return this.list.size();
     }
 
-/*
-    void replace(GarageSale newjob) {
+    void replace(GarageSale sale) {
         try {
             GarageSaleList newlist = new GarageSaleList(this.context);
             for (int i = 0; i < getCount(); i++) {
                 GarageSale je = get(i);
-                if (je.get_jobid().equals(newjob.get_jobid())) {
-                    Log.d("CH12", "Replacing Job");
-                    newlist.add(newjob);
+                if (je.getId().equals(sale.getId())) {
+                    Log.d("GFS", "Replacing Sale");
+                    newlist.add(sale);
                 } else {
                     newlist.add(je);
                 }
@@ -64,22 +74,21 @@ public class GarageSaleList {
 
         }
     }
-*/
 
     void persist() {
         try {
             FileOutputStream fos = this.context.openFileOutput("chapter12.xml", Context.MODE_PRIVATE);
             fos.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n".getBytes());
-            fos.write("<joblist>\n".getBytes());
+            fos.write("<garagesalelist>\n".getBytes());
             for (int i = 0; i < getCount(); i++) {
-                GarageSale je = get(i);
-                fos.write(je.toXMLString().getBytes());
+                GarageSale garageSale = get(i);
+                fos.write(garageSale.toXMLString().getBytes());
             }
-            fos.write("</joblist>\n".getBytes());
+            fos.write("</garagesalelist>\n".getBytes());
             fos.flush();
             fos.close();
         } catch (Exception e) {
-            Log.d("CH12", "Failed to write out file?" + e.getMessage());
+            Log.d("GFS", "Failed to write out file?" + e.getMessage());
         }
     }
 
@@ -117,10 +126,10 @@ public class GarageSaleList {
             // clean up
             fis.close();
 
-            // return our new joblist
+            // return our new garageSalelist
             return garageSaleListHandler.getList();
         } catch (Exception e) {
-            Log.d("CH12", "Error parsing job list xml file : " + e.getMessage());
+            Log.d("GFS-", "Error parsing garageSale garageSaleList xml file : " + e.getMessage());
             return null;
         }
     }

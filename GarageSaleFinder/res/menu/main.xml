@@ -1,8 +1,27 @@
+<!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.brunz.garagesalefinder.MainActivity">
 
+    <item
+        android:id="@+id/action_refreshsales"
+        android:orderInCategory="99"
+        android:title="@string/action_refreshsales" />
+    <item
+        android:id="@+id/action_viewsales"
+        android:orderInCategory="99"
+        android:title="@string/action_viewsales" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

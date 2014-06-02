@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.brunz.garagesalefinder"
     android:versionCode="1"
@@ -21,6 +31,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RefreshSales"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".ViewSales"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".ShowSettings"
+            android:label="@string/app_name"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

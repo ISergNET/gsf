@@ -1,3 +1,14 @@
+<!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
 <LinearLayout
     android:orientation="horizontal"
     android:layout_width="fill_parent"

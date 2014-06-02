@@ -1,15 +1,32 @@
+/*
+ * ISCG7424 – Mobile Software Development
+ * Assignment 3: Garage Sales Finder
+ * Parts: All
+ * Student: Paul Shalley		(ID:1402195)
+ * Student: Renato De Mendonca	(ID:1422497)
+ * Student: Sergey Seriakov 	(ID:1405156)
+ * Teacher: Dr. John Casey
+ * 2014.
+ */
+
 package com.brunz.garagesalefinder;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 public class MainActivity extends Activity {
+
+    final int ACTIVITY_REFRESHSALES = 1;
+    final int ACTIVITY_LISTSALES = 2;
+    final int ACTIVITY_SETTINGS = 3;
+
+    final String tag = "GSF:Main";
+
+    GS_Settings settings = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,31 +50,37 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+        if (id == R.id.action_refreshsales) {
+            try {
+                startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
+                        this.ACTIVITY_REFRESHSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+        if (id == R.id.action_viewsales) {
+            try {
+                // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
+                        this.ACTIVITY_LISTSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to list sales [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+        if (id == R.id.action_settings) {
+            try {
+                // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), ShowSettings.class),
+                        this.ACTIVITY_SETTINGS);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to Launch Settings [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
 	}
 
-/*
-    */
-/**
-	 * A placeholder fragment containing a simple view.
- *//*
-
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-*/
 
 }

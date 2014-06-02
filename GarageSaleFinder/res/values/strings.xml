@@ -1,7 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
 <resources>
 
     <string name="app_name">Garage Sales Finder</string>
+    <string name="action_refreshsales">Refersh sales</string>
     <string name="action_settings">Settings</string>
+    <string name="action_viewsales">View sales</string>
 
 </resources>

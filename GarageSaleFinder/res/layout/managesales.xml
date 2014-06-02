@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/garagelistview"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
+
+    <TextView
+        android:id="@+id/statuslabel"
+        android:text="list jobs here "
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent" />
+
+    <ListView
+        android:id="@+id/garagelist"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent" />
+</LinearLayout>	
+

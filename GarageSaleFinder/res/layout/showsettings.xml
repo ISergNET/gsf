@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ISCG7424 – Mobile Software Development
+  ~ Assignment 3: Garage Sales Finder
+  ~ Parts: All
+  ~ Student: Paul Shalley		(ID:1402195)
+  ~ Student: Renato De Mendonca	(ID:1422497)
+  ~ Student: Sergey Seriakov 	(ID:1405156)
+  ~ Teacher: Dr. John Casey
+  ~ 2014.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="XML File" />
+
+    <EditText
+        android:id="@+id/xmlfile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoText="true" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Server URL" />
+
+    <EditText
+        android:id="@+id/serverurl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoText="true" />
+
+
+    <Button
+        android:id="@+id/settingssave"
+        android:text="Save Settings"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:enabled="true" />
+
+</LinearLayout>
