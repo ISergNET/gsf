@@ -32,7 +32,7 @@ public class GarageSale implements Serializable {
     }
 
     public String toString() {
-        return id + " " + address + " " + suburb + " " + geocode + " " + description + " " + date + " " + time + " " + region;
+        return address + "\n" + suburb + ", " + region;
     }
 
     public String toXMLString() {

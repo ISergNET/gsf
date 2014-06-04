@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ ISCG7424 – Mobile Software Development
   ~ Assignment 3: Garage Sales Finder
@@ -9,7 +11,7 @@
   ~ 2014.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.brunz.garagesalefinder.MainActivity">
 
@@ -17,13 +19,5 @@
         android:id="@+id/action_refreshsales"
         android:orderInCategory="99"
         android:title="@string/action_refreshsales" />
-    <item
-        android:id="@+id/action_viewsales"
-        android:orderInCategory="99"
-        android:title="@string/action_viewsales" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings" />
 
 </menu>

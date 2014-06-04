@@ -15,6 +15,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,14 +29,17 @@ import android.widget.TextView;
 public class ViewSales extends Activity implements AdapterView.OnItemClickListener {
 
     final int SHOWSALE = 1;
+    final int ACTIVITY_REFRESHSALES = 1;
+
+    final String tag = "GSF:ViewSales";
     GS_Settings settings = null;
 
     GarageSaleList garageSaleList = null;
     ListView saleListView;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
 
         setContentView(R.layout.managesales);
 
@@ -82,7 +87,7 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
         Log.i("GFS", "sale clicked! [" + garageSale.getId() + "]");
 
         // a sale has been selected, let's get it ready to display
-        Intent saleintent = new Intent(v.getContext(), ViewSales.class);
+        Intent saleintent = new Intent(v.getContext(), ShowSale.class);
 
         // use the toBundle() helper method to assist in pushing
         // data across the "Activity" boundary
@@ -111,4 +116,50 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.viewsales, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_refreshsales) {
+            try {
+                startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
+                        this.ACTIVITY_REFRESHSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+/*
+        if (id == R.id.action_viewsales) {
+            try {
+                // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
+                        this.ACTIVITY_LISTSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to list sales [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+        if (id == R.id.action_settings) {
+            try {
+                // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), ShowSettings.class),
+                        this.ACTIVITY_SETTINGS);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to Launch Settings [" + e.getMessage() + "]");
+            }
+            return true;
+        }
+*/
+        return super.onOptionsItemSelected(item);
+    }
 }

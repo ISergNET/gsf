@@ -38,6 +38,9 @@
             android:name=".ViewSales"
             android:label="@string/app_name"></activity>
         <activity
+            android:name=".ShowSale"
+            android:label="@string/app_name"></activity>
+        <activity
             android:name=".ShowSettings"
             android:label="@string/app_name"></activity>
     </application>
