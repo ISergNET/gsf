@@ -23,9 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-/**
- * Created by ISerg on 02.06.2014.
- */
+
 public class ViewSales extends Activity implements AdapterView.OnItemClickListener {
 
     final int SHOWSALE = 1;
