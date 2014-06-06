@@ -19,9 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by ISerg on 04.06.2014.
- */
+
 public class ShowSale extends Activity {
 
     GS_Settings settings = null;

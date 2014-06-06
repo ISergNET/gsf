@@ -25,9 +25,6 @@ import java.util.Vector;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-/**
- * Created by ISerg on 23.05.2014.
- */
 
 public class GarageSaleList {
 

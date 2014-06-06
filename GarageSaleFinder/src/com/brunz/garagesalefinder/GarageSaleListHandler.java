@@ -20,9 +20,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**
- * Created by ISerg on 23.05.2014.
- */
+
 public class GarageSaleListHandler extends DefaultHandler {
 
     Handler handler = null;

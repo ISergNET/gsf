@@ -14,9 +14,7 @@ package com.brunz.garagesalefinder;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by ISerg on 02.06.2014.
- */
+
 public class GS_Settings {
 
     private SharedPreferences settings = null;

@@ -26,9 +26,7 @@ import java.net.URL;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-/**
- * Created by ISerg on 02.06.2014.
- */
+
 public class RefreshSales extends Activity {
 
     GS_Settings settings = null;
