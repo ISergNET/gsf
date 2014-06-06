@@ -17,14 +17,17 @@
 
     <TextView
         android:id="@+id/details"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent" />
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:autoText="false"
+        android:layout_weight="0.99" />
 
     <Button
         android:id="@+id/mapsale"
         android:text="Map Sale Location"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent" />
+        android:layout_width="fill_parent"
+        android:layout_weight="0.01" />
 
 
 </LinearLayout>	

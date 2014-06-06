@@ -13,8 +13,6 @@ package com.brunz.garagesalefinder;
 
 import android.os.Bundle;
 
-import java.io.Serializable;
-
 
 public class GarageSale {
     String id;

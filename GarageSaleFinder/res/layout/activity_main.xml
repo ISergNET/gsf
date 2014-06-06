@@ -20,13 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Your location address:"
         android:id="@+id/labelYourLocationAddress"
         android:layout_weight="0.01"
         android:textColor="#ffffaf03"
         android:singleLine="false"
         android:textStyle="bold|italic"
-        android:editable="false" />
+        android:editable="false"
+        android:text="@string/lbl_ylocadr" />
 
     <EditText
         android:layout_width="match_parent"
@@ -45,6 +45,41 @@
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal|bottom"
         android:src="@drawable/garage_sale_logo"
-        android:layout_weight="0.9" />
+        android:layout_weight="0.97" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/text"
+            android:layout_weight="100"
+            android:textColor="#ff08ca50"
+            android:gravity="bottom|left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No signal"
+            android:id="@+id/prvdView"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="33"
+            android:gravity="center_horizontal|bottom" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coordinates unavailable..."
+            android:id="@+id/cView"
+            android:layout_gravity="right"
+            android:layout_weight="34"
+            android:gravity="bottom|right"
+            android:textColor="#ff08ca50" />
+    </LinearLayout>
 
 </LinearLayout>

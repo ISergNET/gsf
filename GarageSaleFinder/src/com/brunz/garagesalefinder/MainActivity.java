@@ -12,11 +12,23 @@
 package com.brunz.garagesalefinder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -27,27 +39,111 @@ public class MainActivity extends Activity {
     final String tag = "GSF:Main";
 
     GS_Settings settings = null;
+    private Geocoder geocoder;
+    private Location location;
+    private Boolean startRefresh;
+
+    public MainActivity() {
+        super();
+        startRefresh = false;
+    }
+
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location loc) {
+            location = loc;
+            printCoordinates();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            // Perform action on click
-            startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
-                    this.ACTIVITY_LISTSALES);
-        } catch (Exception e) {
-            Log.i(this.tag, "Failed to list sales [" + e.getMessage() + "]");
+/*
+        if (settings.getLocationProvider() == "Address"){
+            if (settings.getYourLocationAddress().toString().isEmpty()){
+
+            }
         }
-        try {
-            startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
-                    this.ACTIVITY_REFRESHSALES);
-        } catch (Exception e) {
-            Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
+*/
+        TextView text = (TextView) this.findViewById(R.id.text);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        text.setText("List of location providers:\n");
+
+        List<String> providers = locationManager.getAllProviders();
+        for (int i = 0; i < providers.size(); i++) {
+            String provider = providers.get(i);
+            text.append(provider.toUpperCase() + " is " + locationManager.isProviderEnabled(provider) + "\n");
+        }
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_LOW);
+        //criteria.setPowerRequirement(Criteria.POWER_LOW);
+        criteria.setAltitudeRequired(true);
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        TextView prvdView = (TextView) this.findViewById(R.id.prvdView);
+        prvdView.setText(bestProvider.toUpperCase());
+        locationManager.requestLocationUpdates(bestProvider, 1, 0, locationListener);
+        location = locationManager.getLastKnownLocation(bestProvider);
+        geocoder = new Geocoder(getApplicationContext());
+        if (location != null) {
+            printCoordinates();
+        }
+        if (!startRefresh) {
+            startRefresh = true;
+            try {
+                // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
+                        this.ACTIVITY_LISTSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to list sales [" + e.getMessage() + "]");
+            }
+            try {
+                startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
+                        this.ACTIVITY_REFRESHSALES);
+            } catch (Exception e) {
+                Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
+            }
         }
 
     }
 
+    private void printCoordinates() {
+        TextView cView = (TextView) this.findViewById(R.id.cView);
+        cView.setText("\nLatitude: " + location.getLatitude());
+        cView.append("\nLongitude: " + location.getLongitude());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses != null && addresses.size() > 0) {
+            EditText editText = (EditText) this.findViewById(R.id.editYourLocationAddress);
+            editText.setText(addresses.get(0).toString());
+            editText.invalidate();
+        }
+        cView.invalidate();
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +190,4 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

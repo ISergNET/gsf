@@ -23,6 +23,7 @@ public class GS_Settings {
     private String serverUrl = "http://garage-sales.co.nz/";
     private String yourLocationAddress = "";
     private String distanceToYouLocation = "40.0";
+    private String locationProvider = "1";
 
     public GS_Settings(Context context) {
         this.settings = context.getSharedPreferences("PREFS_PRIVATE", Context.MODE_PRIVATE);
@@ -111,6 +112,23 @@ public class GS_Settings {
         }
 
         this.editor.putString("distanceToYouLocation", newFile);
+    }
+
+    public int getLocationProvider() {
+        if (this.settings == null) {
+            return 1;
+        }
+
+        this.locationProvider = this.settings.getString("locationProvider", "Address");
+        return Integer.getInteger(this.locationProvider);
+    }
+
+    public void setLocationProvider(Integer newFile) {
+        if (this.editor == null) {
+            return;
+        }
+
+        this.editor.putString("locationProvider", newFile.toString());
     }
 
     public void save() {
