@@ -40,10 +40,10 @@ public class ShowSale extends Activity {
         Intent startingIntent = getIntent();
 
         if (startingIntent != null) {
-            Log.i("GFS::ShowJob", "starting intent not null");
+            Log.i("GFS::ShowSale", "starting intent not null");
             Bundle b = startingIntent.getExtras();
             if (b == null) {
-                Log.i("GFS::ShowJob", "bad bundle");
+                Log.i("GFS::ShowSale", "bad bundle");
                 details = "bad bundle?";
             } else {
                 this.garageSale = GarageSale.fromBundle(b);
@@ -106,28 +106,28 @@ public class ShowSale extends Activity {
 /*
         Button bclose = (Button) findViewById(R.id.closesale);
         if (this.garageSale.get_status().equals("CLOSED")) {
-            bclose.setText("Job is Closed. View Signature");
+            bclose.setText("Sale is Closed. View Signature");
         }
         bclose.setOnClickListener(new Button.OnClickListener() {
 
             public void onClick(View v) {
                 if (ShowSale.this.garageSale.get_status().equals("CLOSED")) {
                     Intent signatureIntent = new Intent("android.intent.action.VIEW", android.net.Uri
-                            .parse(ShowSale.this.settings.getServer() + "sigs/" + ShowSale.this.garageSale.get_jobid() + ".jpg"));
+                            .parse(ShowSale.this.settings.getServer() + "sigs/" + ShowSale.this.garageSale.get_saleid() + ".jpg"));
 
                     startActivity(signatureIntent);
 
                 } else {
-                    Intent closeJobIntent = new Intent(ShowSale.this, CloseSale.class);
+                    Intent closeSaleIntent = new Intent(ShowSale.this, CloseSale.class);
                     Bundle b = ShowSale.this.garageSale.toBundle();
-                    closeJobIntent.putExtras(b);
-                    // closeJobIntent.putExtra("android.intent.extra.INTENT", b);
-                    startActivityForResult(closeJobIntent, ShowSale.this.CLOSEJOBTASK);
+                    closeSaleIntent.putExtras(b);
+                    // closeSaleIntent.putExtra("android.intent.extra.INTENT", b);
+                    startActivityForResult(closeSaleIntent, ShowSale.this.CLOSESALETASK);
                 }
             }
         });
 
-        Log.d("GFS", "Job status is :" + this.garageSale.get_status());
+        Log.d("GFS", "Sale status is :" + this.garageSale.get_status());
 */
 
     }
