@@ -12,20 +12,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/garagelistview"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:weightSum="1">
 
-    <TextView
-        android:id="@+id/statuslabel"
-        android:text="list sales here "
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/statuslabel"
+            android:text="List sales here "
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#ffffaf03" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/editText"
+            android:layout_weight="1"
+            android:inputType="text" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:src="@drawable/search"
+            android:adjustViewBounds="true"
+            android:baselineAlignBottom="false"
+            android:clickable="true"
+            android:cropToPadding="false"
+            android:focusable="false"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/garagelist"
-        android:layout_height="fill_parent"
-        android:layout_width="wrap_content" />
-</LinearLayout>	
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="0.98"
+        android:layout_gravity="bottom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/garage_sale_logo"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</LinearLayout>
 

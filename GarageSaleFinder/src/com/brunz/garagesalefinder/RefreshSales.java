@@ -38,8 +38,8 @@ public class RefreshSales extends Activity {
     Handler progresshandler;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
 
         setContentView(R.layout.refresh_sales);
 

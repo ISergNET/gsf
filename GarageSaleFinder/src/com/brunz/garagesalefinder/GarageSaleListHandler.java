@@ -121,18 +121,30 @@ public class GarageSaleListHandler extends DefaultHandler {
         }
 
         if (localName.equals("id")) {
-            this.sale.setId(this.sb.toString());
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setId(this.sb.toString().replace("&", ""));
+            else
+                this.sale.setId(this.sb.toString());
             return;
         }
         if (localName.equals("address")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setAddress(this.sb.toString().replace("&", ""));
+            else
             this.sale.setAddress(this.sb.toString());
             return;
         }
         if (localName.equals("suburb")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setSuburb(this.sb.toString().replace("&", ""));
+            else
             this.sale.setSuburb(this.sb.toString());
             return;
         }
         if (localName.equals("geocode")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setGeocode(this.sb.toString().replace("&", ""));
+            else
             this.sale.setGeocode(this.sb.toString());
             return;
         }
@@ -144,14 +156,23 @@ public class GarageSaleListHandler extends DefaultHandler {
             return;
         }
         if (localName.equals("date")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setDate(this.sb.toString().replace("&", ""));
+            else
             this.sale.setDate(this.sb.toString());
             return;
         }
         if (localName.equals("time")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setTime(this.sb.toString().replace("&", ""));
+            else
             this.sale.setTime(this.sb.toString());
             return;
         }
         if (localName.equals("region")) {
+            if (this.sb.toString().indexOf("&") >= 0)
+                this.sale.setRegion(this.sb.toString().replace("&", ""));
+            else
             this.sale.setRegion(this.sb.toString());
             return;
         }

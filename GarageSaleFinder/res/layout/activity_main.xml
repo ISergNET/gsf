@@ -10,15 +10,41 @@
   -->
 
 <LinearLayout
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Your location address:"
+        android:id="@+id/labelYourLocationAddress"
+        android:layout_weight="0.01"
+        android:textColor="#ffffaf03"
+        android:singleLine="false"
+        android:textStyle="bold|italic"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textFilter|textMultiLine|textPostalAddress"
+        android:ems="10"
+        android:id="@+id/editYourLocationAddress"
+        android:layout_weight="0.01"
+        android:singleLine="false"
+        android:maxLines="3"
+        android:minLines="1" />
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/garage_sale_logo" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:src="@drawable/garage_sale_logo"
+        android:layout_weight="0.9" />
+
 </LinearLayout>

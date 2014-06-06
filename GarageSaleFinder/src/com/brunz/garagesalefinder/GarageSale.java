@@ -18,7 +18,7 @@ import java.io.Serializable;
 /**
  * Created by ISerg on 23.05.2014.
  */
-public class GarageSale implements Serializable {
+public class GarageSale {
     String id;
     String address;
     String suburb;
