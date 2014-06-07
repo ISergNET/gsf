@@ -20,20 +20,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class ViewSales extends Activity implements AdapterView.OnItemClickListener {
 
     final int SHOWSALE = 1;
-    final int ACTIVITY_REFRESHSALES = 1;
 
     final String tag = "GSF:ViewSales";
     GS_Settings settings = null;
 
     GarageSaleList garageSaleList = null;
+    ArrayList<GarageSale> saleList = null;
     ListView saleListView;
+    EditText searchText = null;
+    private static String search = "";
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -44,8 +50,6 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
         // get our application prefs handle
         this.settings = new GS_Settings(getApplicationContext());
 
-        TextView tv = (TextView) findViewById(R.id.statuslabel);
-
         this.garageSaleList = GarageSaleList.parse(getApplicationContext());
         if (this.garageSaleList == null) {
             Log.d("GFS", "garageSaleList is null");
@@ -55,18 +59,32 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
             this.garageSaleList = new GarageSaleList(getApplicationContext());
         }
 
-        if (this.garageSaleList.getCount() == 0) {
-            tv.setText("There are No Sales Available");
-        } else {
-            tv.setText("There are " + this.garageSaleList.getCount() + " sales.");
-        }
-
         // get a reference to the garageSaleList view
         this.saleListView = (ListView) findViewById(R.id.garagelist);
 
+        searchText = (EditText) findViewById(R.id.searchText);
+        searchText.setText(search);
+
+        saleList = new ArrayList<GarageSale>(garageSaleList.getAll());
+        if (Double.parseDouble(settings.getDistanceToYouLocation()) > 0) {
+            for (int i = saleList.size() - 1; i > -1; i--) {
+                GarageSale sale = saleList.get(i);
+                if (sale.distance != null) {
+                    if (sale.distance > Double.parseDouble(settings.getDistanceToYouLocation()))
+                        saleList.remove(i);
+                }
+            }
+        }
+        if (search.length() != 0) {
+            for (int i = saleList.size() - 1; i > -1; i--) {
+                GarageSale sale = saleList.get(i);
+                if (sale.description.toUpperCase().indexOf(search.toUpperCase()) < 0)
+                    saleList.remove(i);
+            }
+        }
         // setup data adapter
         ArrayAdapter<GarageSale> adapter = new ArrayAdapter<GarageSale>(this, android.R.layout.simple_list_item_1,
-                this.garageSaleList.getAll());
+                saleList);
 
         // assign adapter to garageSaleList view
         this.saleListView.setAdapter(adapter);
@@ -76,42 +94,79 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
 
         // hilight the first entry in the garageSaleList...
         this.saleListView.setSelection(0);
+        saleListView.setActivated(true);
 
+        TextView tv = (TextView) findViewById(R.id.statuslabel);
+
+        if (adapter.getCount() == 0) {
+            tv.setText("There are No Sales Available");
+        } else {
+            tv.setText("There are " + adapter.getCount() + " sales.");
+        }
+        ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new ImageButton.OnClickListener() {
+            public void onClick(View v) {
+                searchText = (EditText) findViewById(R.id.searchText);
+                search = searchText.getText().toString();
+                // get a reference to the garageSaleList view
+                saleListView = (ListView) findViewById(R.id.garagelist);
+                //String bufSearch = settings.getSearchString();
+                saleList = new ArrayList<GarageSale>(garageSaleList.getAll());
+                if (Double.parseDouble(settings.getDistanceToYouLocation()) > 0) {
+                    for (int i = saleList.size() - 1; i > -1; i--) {
+                        GarageSale sale = saleList.get(i);
+                        if (sale.distance != null) {
+                            if (sale.distance > Double.parseDouble(settings.getDistanceToYouLocation()))
+                                saleList.remove(i);
+                        }
+                    }
+                }
+                if (search.length() != 0) {
+                    for (int i = saleList.size() - 1; i > -1; i--) {
+                        GarageSale sale = saleList.get(i);
+                        if (sale.description.toUpperCase().indexOf(search.toUpperCase()) < 0)
+                            saleList.remove(i);
+                    }
+                }
+                // setup data adapter
+                ArrayAdapter<GarageSale> adapter = new ArrayAdapter<GarageSale>(ViewSales.this,
+                        android.R.layout.simple_list_item_1,
+                        saleList);
+
+                // assign adapter to garageSaleList view
+                saleListView.setAdapter(adapter);
+
+                // hilight the first entry in the garageSaleList...
+                saleListView.setSelection(0);
+                saleListView.setActivated(true);
+                TextView tv = (TextView) findViewById(R.id.statuslabel);
+
+                if (adapter.getCount() == 0) {
+                    tv.setText("There are No Sales Available");
+                } else {
+                    tv.setText("There are " + adapter.getCount() + " sales.");
+                }
+            }
+        });
     }
 
     public void onItemClick(AdapterView parent, View v, int position, long id) {
-        GarageSale garageSale = this.garageSaleList.get(position);
+        GarageSale garageSale = saleList.get(position);
 
         Log.i("GFS", "sale clicked! [" + garageSale.getId() + "]");
 
         // a sale has been selected, let's get it ready to display
-        Intent saleintent = new Intent(v.getContext(), ShowSale.class);
+        Intent saleIntent = new Intent(v.getContext(), ShowSale.class);
 
         // use the toBundle() helper method to assist in pushing
         // data across the "Activity" boundary
         Bundle b = garageSale.toBundle();
-        // saleintent.putExtra("android.intent.extra.INTENT", b);
-        saleintent.putExtras(b);
+        // saleIntent.putExtra("android.intent.extra.INTENT", b);
+        saleIntent.putExtras(b);
         // we start this as a "sub" activity, because it may get updated
         // and we need to track that (in the method below OnActivityResult)
-        startActivityForResult(saleintent, this.SHOWSALE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case SHOWSALE:
-                if (resultCode == 1) {
-                    Log.d("GFS", "Good Close, let's update our garageSaleList");
-                    // pull the SaleEntry out of the bundle
-                    Bundle bundle = data.getExtras();
-                    GarageSale garageSale = GarageSale.fromBundle(bundle);
-                    // update our garageSaleList of sales
-                    this.garageSaleList.replace(garageSale);
-                }
-                break;
-        }
-
+        startActivityForResult(saleIntent, this.SHOWSALE);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,8 +184,11 @@ public class ViewSales extends Activity implements AdapterView.OnItemClickListen
         int id = item.getItemId();
         if (id == R.id.action_refreshsales) {
             try {
+                this.finishActivity(1);
                 startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
-                        this.ACTIVITY_REFRESHSALES);
+                        MainActivity.ACTIVITY_REFRESHSALES);
+                startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
+                        MainActivity.ACTIVITY_LISTSALES);
             } catch (Exception e) {
                 Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
             }

@@ -64,6 +64,7 @@ public class GarageSaleList {
                 } else {
                     newlist.add(je);
                 }
+                i++;
             }
             this.list = newlist.list;
             persist();

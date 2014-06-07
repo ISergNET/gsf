@@ -21,30 +21,11 @@ public class GS_Settings {
     private SharedPreferences.Editor editor = null;
     private String xmlFile = "api.xml";
     private String serverUrl = "http://garage-sales.co.nz/";
-    private String yourLocationAddress = "";
-    private String distanceToYouLocation = "40.0";
-    private String locationProvider = "1";
+    private String distanceToYouLocation = "0.0";
 
     public GS_Settings(Context context) {
         this.settings = context.getSharedPreferences("PREFS_PRIVATE", Context.MODE_PRIVATE);
         this.editor = this.settings.edit();
-    }
-
-    public String getValue(String key, String defaultvalue) {
-        if (this.settings == null) {
-            return "Unknown";
-        }
-
-        return this.settings.getString(key, defaultvalue);
-    }
-
-    public void setValue(String key, String value) {
-        if (this.editor == null) {
-            return;
-        }
-
-        this.editor.putString(key, value);
-
     }
 
     public String getXmlFile() {
@@ -80,29 +61,12 @@ public class GS_Settings {
         this.editor.putString("serverUrl", serverurl);
     }
 
-    public String getYourLocationAddress() {
-        if (this.settings == null) {
-            return "";
-        }
-
-        this.yourLocationAddress = this.settings.getString("yourLocationAddress", "");
-        return this.yourLocationAddress;
-    }
-
-    public void setYourLocationAddress(String newFile) {
-        if (this.editor == null) {
-            return;
-        }
-
-        this.editor.putString("yourLocationAddress", newFile);
-    }
-
     public String getDistanceToYouLocation() {
         if (this.settings == null) {
-            return "40.0";
+            return "0.0";
         }
 
-        this.distanceToYouLocation = this.settings.getString("distanceToYouLocation", "40.0");
+        this.distanceToYouLocation = this.settings.getString("distanceToYouLocation", "0.0");
         return this.distanceToYouLocation;
     }
 
@@ -112,23 +76,6 @@ public class GS_Settings {
         }
 
         this.editor.putString("distanceToYouLocation", newFile);
-    }
-
-    public int getLocationProvider() {
-        if (this.settings == null) {
-            return 1;
-        }
-
-        this.locationProvider = this.settings.getString("locationProvider", "Address");
-        return Integer.getInteger(this.locationProvider);
-    }
-
-    public void setLocationProvider(Integer newFile) {
-        if (this.editor == null) {
-            return;
-        }
-
-        this.editor.putString("locationProvider", newFile.toString());
     }
 
     public void save() {

@@ -18,25 +18,16 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="XML File" />
+        android:text="@string/lbl_distance" />
 
     <EditText
-        android:id="@+id/xmlfile"
+        android:id="@+id/editDistance"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:autoText="true" />
-
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Server URL" />
-
-    <EditText
-        android:id="@+id/serverurl"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:autoText="true" />
+        android:autoText="true"
+        android:numeric="decimal"
+        android:textStyle="bold"
+        android:inputType="numberDecimal" />
 
 
     <Button

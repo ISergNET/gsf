@@ -32,21 +32,17 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    final int ACTIVITY_REFRESHSALES = 1;
-    final int ACTIVITY_LISTSALES = 2;
-    final int ACTIVITY_SETTINGS = 3;
+    public static final int ACTIVITY_REFRESHSALES = 1;
+    public static final int ACTIVITY_LISTSALES = 2;
+    public static final int ACTIVITY_SETTINGS = 3;
 
     final String tag = "GSF:Main";
 
     GS_Settings settings = null;
     private Geocoder geocoder;
     public static Location location;
-    private Boolean startRefresh;
+    private static Boolean startRefresh = false;
 
-    public MainActivity() {
-        super();
-        startRefresh = false;
-    }
 
     private LocationListener locationListener = new LocationListener() {
         @Override
@@ -75,13 +71,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        if (settings.getLocationProvider() == "Address"){
-            if (settings.getYourLocationAddress().toString().isEmpty()){
 
-            }
-        }
-*/
+        settings = new GS_Settings(getApplicationContext());
+
         TextView text = (TextView) this.findViewById(R.id.text);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         text.setText("List of location providers:\n");
@@ -137,7 +129,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         if (addresses != null && addresses.size() > 0) {
-            EditText editText = (EditText) this.findViewById(R.id.editYourLocationAddress);
+            EditText editText = (EditText) this.findViewById(R.id.editDistance);
             editText.setText(addresses.get(0).toString());
             editText.invalidate();
         }
@@ -188,5 +180,13 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EditText editDistance = (EditText) findViewById(R.id.editDistance);
+        editDistance.setText(settings.getDistanceToYouLocation() + " km.");
+        editDistance.invalidate();
     }
 }
