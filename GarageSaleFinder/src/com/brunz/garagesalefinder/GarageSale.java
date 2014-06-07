@@ -13,6 +13,8 @@ package com.brunz.garagesalefinder;
 
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.LatLng;
+
 
 public class GarageSale {
     String id;
@@ -28,7 +30,20 @@ public class GarageSale {
     }
 
     public String toString() {
-        return address + "\n" + suburb + ", " + region;
+        String[] coords = geocode.split(",");
+        String dst = "";
+
+        if ((coords != null) && (coords.length == 2)) {
+            LatLng dest = new LatLng(Double.parseDouble(coords[0]), Double
+                    .parseDouble(coords[1]));
+            if (MainActivity.location != null) {
+                LatLng curr = new LatLng(MainActivity.location.getLatitude(),
+                        MainActivity.location.getLongitude());
+                dst = String.format("Dist: %5.0f km. ",
+                        DistanceTool.distanceBetweenPlaces(curr, dest));
+            }
+        }
+        return address + "\n" + suburb + ", " + region + "\n\t" + dst;
     }
 
     public String toXMLString() {

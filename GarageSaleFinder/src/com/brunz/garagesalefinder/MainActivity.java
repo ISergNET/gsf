@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 
     GS_Settings settings = null;
     private Geocoder geocoder;
-    private Location location;
+    public static Location location;
     private Boolean startRefresh;
 
     public MainActivity() {
@@ -86,19 +86,22 @@ public class MainActivity extends Activity {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         text.setText("List of location providers:\n");
 
-        List<String> providers = locationManager.getAllProviders();
-        for (int i = 0; i < providers.size(); i++) {
-            String provider = providers.get(i);
-            text.append(provider.toUpperCase() + " is " + locationManager.isProviderEnabled(provider) + "\n");
-        }
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_LOW);
         //criteria.setPowerRequirement(Criteria.POWER_LOW);
         criteria.setAltitudeRequired(true);
         String bestProvider = locationManager.getBestProvider(criteria, true);
+
+        List<String> providers = locationManager.getAllProviders();
+        for (int i = 0; i < providers.size(); i++) {
+            String provider = providers.get(i);
+            text.append(provider.toUpperCase() + " is " + locationManager.isProviderEnabled(provider) + "\n");
+        }
         TextView prvdView = (TextView) this.findViewById(R.id.prvdView);
+        bestProvider = (bestProvider != LocationManager.NETWORK_PROVIDER) ?
+                LocationManager.NETWORK_PROVIDER : bestProvider;
         prvdView.setText(bestProvider.toUpperCase());
-        locationManager.requestLocationUpdates(bestProvider, 1, 0, locationListener);
+        locationManager.requestLocationUpdates(bestProvider, 300000, 0, locationListener);
         location = locationManager.getLastKnownLocation(bestProvider);
         geocoder = new Geocoder(getApplicationContext());
         if (location != null) {
@@ -139,10 +142,6 @@ public class MainActivity extends Activity {
             editText.invalidate();
         }
         cView.invalidate();
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     @Override
