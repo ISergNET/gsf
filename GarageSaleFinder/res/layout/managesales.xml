@@ -21,7 +21,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:layout_weight="0.01">
 
         <TextView
             android:id="@+id/statuslabel"
@@ -31,16 +32,16 @@
             android:textColor="#ffffaf03" />
 
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/editText"
+            android:id="@+id/searchText"
             android:layout_weight="1"
             android:inputType="text" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
+            android:id="@+id/searchButton"
             android:src="@drawable/search"
             android:adjustViewBounds="true"
             android:baselineAlignBottom="false"
@@ -53,18 +54,18 @@
 
     <ListView
         android:id="@+id/garagelist"
-        android:layout_height="0dp"
+        android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_weight="0.98"
-        android:layout_gravity="bottom" />
+        android:layout_weight="0.98" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:src="@drawable/garage_sale_logo"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:adjustViewBounds="false"
+        android:layout_weight="0.01"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 

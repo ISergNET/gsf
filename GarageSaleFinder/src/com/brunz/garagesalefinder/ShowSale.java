@@ -76,10 +76,6 @@ public class ShowSale extends Activity {
                 String locationStr = "geo:" + ShowSale.this.garageSale.getGeocode();
 
                 try {
-/*
-                    Intent geoIntent = new Intent("android.intent.action.VIEW", android.net.Uri.parse("geo:0,0?q="
-                            + cleanAddress));
-*/
                     Intent geoIntent = new Intent("android.intent.action.VIEW",
                             android.net.Uri.parse(locationStr + "?q=" + cleanAddress));
 

@@ -20,27 +20,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/labelYourLocationAddress"
+        android:id="@+id/labelDistance"
         android:layout_weight="0.01"
         android:textColor="#ffffaf03"
         android:singleLine="false"
         android:textStyle="bold|italic"
         android:editable="false"
-        android:text="@string/lbl_ylocadr" />
+        android:text="@string/lbl_distance" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textFilter|textMultiLine|textPostalAddress"
         android:ems="10"
-        android:id="@+id/editYourLocationAddress"
+        android:id="@+id/editDistance"
         android:layout_weight="0.01"
         android:singleLine="false"
         android:maxLines="3"
         android:minLines="1"
         android:enabled="false"
         android:focusable="false"
-        android:editable="false" />
+        android:editable="false"
+        android:textColor="@android:color/background_light"
+        android:text="example" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -77,12 +79,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Coordinates unavailable..."
+            android:text="Searching..."
             android:id="@+id/cView"
             android:layout_gravity="right"
             android:layout_weight="34"
             android:gravity="bottom|right"
-            android:textColor="#ff08ca50" />
+            android:textColor="#ff08ca50"
+            android:singleLine="false" />
     </LinearLayout>
 
 </LinearLayout>

@@ -25,25 +25,17 @@ public class GarageSale {
     String date;
     String time;
     String region;
+    Double distance;
 
     GarageSale() {
     }
 
     public String toString() {
-        String[] coords = geocode.split(",");
-        String dst = "";
-
-        if ((coords != null) && (coords.length == 2)) {
-            LatLng dest = new LatLng(Double.parseDouble(coords[0]), Double
-                    .parseDouble(coords[1]));
-            if (MainActivity.location != null) {
-                LatLng curr = new LatLng(MainActivity.location.getLatitude(),
-                        MainActivity.location.getLongitude());
-                dst = String.format("Dist: %5.0f km. ",
-                        DistanceTool.distanceBetweenPlaces(curr, dest));
-            }
-        }
-        return address + "\n" + suburb + ", " + region + "\n\t" + dst;
+        if (distance != null)
+            return address + "\n" + suburb + ", " + region + "\n\t"
+                    + String.format("Dist: %5.0f km. ", distance);
+        else
+            return address + "\n" + suburb + ", " + region;
     }
 
     public String toXMLString() {
@@ -91,6 +83,17 @@ public class GarageSale {
 
     public void setGeocode(String geocode) {
         this.geocode = geocode;
+        String[] coords = geocode.split(",");
+
+        if ((coords != null) && (coords.length == 2)) {
+            LatLng dest = new LatLng(Double.parseDouble(coords[0]), Double
+                    .parseDouble(coords[1]));
+            if (MainActivity.location != null) {
+                LatLng curr = new LatLng(MainActivity.location.getLatitude(),
+                        MainActivity.location.getLongitude());
+                this.distance = DistanceTool.distanceBetweenPlaces(curr, dest);
+            }
+        }
     }
 
     public String getDescription() {

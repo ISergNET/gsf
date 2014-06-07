@@ -15,6 +15,6 @@
     <string name="action_refreshsales">Refersh sales</string>
     <string name="action_settings">Settings</string>
     <string name="action_viewsales">View sales</string>
-    <string name="lbl_ylocadr">Your location address:</string>
+    <string name="lbl_distance">Radius around your location (km):</string>
 
 </resources>

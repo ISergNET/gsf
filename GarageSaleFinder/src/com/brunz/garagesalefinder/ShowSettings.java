@@ -55,26 +55,18 @@ public class ShowSettings extends Activity {
 
                     // get the string and do something with it.
 
-                    final EditText email = (EditText) findViewById(R.id.xmlfile);
-                    if (email.getText().length() == 0) {
+                    final EditText editDistance = (EditText) findViewById(R.id.editDistance);
+                    if (editDistance.getText().length() == 0) {
 
                         AlertDialog ad = ShowSettings.this.adb.create();
-                        ad.setMessage("Please Enter Your Email Address");
+                        ad.setMessage("Please Enter amount of kilometres to your location (Distance)");
                         ad.show();
                         return;
                     }
 
-                    final EditText serverurl = (EditText) findViewById(R.id.serverurl);
-                    if (serverurl.getText().length() == 0) {
-                        AlertDialog ad = ShowSettings.this.adb.create();
-                        ad.setMessage("Please Enter The Server URL");
-                        ad.show();
-                        return;
-                    }
 
                     // save off values
-                    ShowSettings.this.settings.setXmlFile(email.getText().toString());
-                    ShowSettings.this.settings.setServer(serverurl.getText().toString());
+                    ShowSettings.this.settings.setDistanceToYouLocation(editDistance.getText().toString());
                     ShowSettings.this.settings.save();
 
                     // we're done!
@@ -88,11 +80,9 @@ public class ShowSettings extends Activity {
 
     private void PopulateScreen() {
         try {
-            final EditText emailfield = (EditText) findViewById(R.id.xmlfile);
-            final EditText serverurlfield = (EditText) findViewById(R.id.serverurl);
+            final EditText editDistance = (EditText) findViewById(R.id.editDistance);
 
-            emailfield.setText(this.settings.getXmlFile());
-            serverurlfield.setText(this.settings.getServer());
+            editDistance.setText(this.settings.getDistanceToYouLocation());
         } catch (Exception e) {
 
         }
