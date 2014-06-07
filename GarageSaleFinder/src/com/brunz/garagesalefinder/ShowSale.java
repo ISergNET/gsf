@@ -81,7 +81,7 @@ public class ShowSale extends Activity {
                             + cleanAddress));
 */
                     Intent geoIntent = new Intent("android.intent.action.VIEW",
-                            android.net.Uri.parse(locationStr/* + "?q=" + cleanAddress*/));
+                            android.net.Uri.parse(locationStr + "?q=" + cleanAddress));
 
                     startActivity(geoIntent);
                 } catch (Exception ee) {
@@ -91,50 +91,21 @@ public class ShowSale extends Activity {
             }
         });
 
-/*
-        Button bproductinfo = (Button) findViewById(R.id.productinfo);
-        bproductinfo.setOnClickListener(new Button.OnClickListener() {
+        Button btnEmailListing = (Button) findViewById(R.id.sendEmail);
 
+        btnEmailListing.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    Intent productInfoIntent = new Intent("android.intent.action.VIEW", android.net.Uri
-                            .parse(ShowSale.this.garageSale.get_producturl()));
-
-                    startActivity(productInfoIntent);
-                } catch (Exception ee) {
-                    Log.d("GFS", "error launching product info? " + ee.getMessage());
-                }
+                String address = ShowSale.this.garageSale.getAddress() + " " + ShowSale.this.garageSale.getSuburb() + " "
+                        + ShowSale.this.garageSale.getRegion();
+                Intent emailListing = new Intent(Intent.ACTION_SEND);
+                emailListing.putExtra(Intent.EXTRA_EMAIL, new String[]{""});
+                emailListing.putExtra(Intent.EXTRA_SUBJECT, "Hi my friend! Garage Sale at: ");
+                emailListing.putExtra(Intent.EXTRA_TEXT, address);
+                emailListing.setType("message/rfc822");
+                startActivity(Intent.createChooser(emailListing, "Choose an Email Client :"));
+                //In here, we put the code that allows people to email listings.
             }
         });
-*/
-
-/*
-        Button bclose = (Button) findViewById(R.id.closesale);
-        if (this.garageSale.get_status().equals("CLOSED")) {
-            bclose.setText("Sale is Closed. View Signature");
-        }
-        bclose.setOnClickListener(new Button.OnClickListener() {
-
-            public void onClick(View v) {
-                if (ShowSale.this.garageSale.get_status().equals("CLOSED")) {
-                    Intent signatureIntent = new Intent("android.intent.action.VIEW", android.net.Uri
-                            .parse(ShowSale.this.settings.getServer() + "sigs/" + ShowSale.this.garageSale.get_saleid() + ".jpg"));
-
-                    startActivity(signatureIntent);
-
-                } else {
-                    Intent closeSaleIntent = new Intent(ShowSale.this, CloseSale.class);
-                    Bundle b = ShowSale.this.garageSale.toBundle();
-                    closeSaleIntent.putExtras(b);
-                    // closeSaleIntent.putExtra("android.intent.extra.INTENT", b);
-                    startActivityForResult(closeSaleIntent, ShowSale.this.CLOSESALETASK);
-                }
-            }
-        });
-
-        Log.d("GFS", "Sale status is :" + this.garageSale.get_status());
-*/
-
     }
 
     @Override
@@ -154,6 +125,5 @@ public class ShowSale extends Activity {
         }
 
     }
-
 }
 

@@ -37,7 +37,10 @@
         android:layout_weight="0.01"
         android:singleLine="false"
         android:maxLines="3"
-        android:minLines="1" />
+        android:minLines="1"
+        android:enabled="false"
+        android:focusable="false"
+        android:editable="false" />
 
     <ImageView
         android:layout_width="wrap_content"
