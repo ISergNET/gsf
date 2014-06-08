@@ -24,7 +24,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -115,7 +118,41 @@ public class MainActivity extends Activity {
                 Log.i(this.tag, "Failed to refresh sales [" + e.getMessage() + "]");
             }
         }
+        ImageButton bOSL = (ImageButton) findViewById(R.id.btnOpenSaleList);
 
+        bOSL.setOnClickListener(new ImageButton.OnClickListener() {
+
+            public void onClick(View v) {
+                try {
+                    // Perform action on click
+                    startActivityForResult(new Intent(getBaseContext(), ViewSales.class),
+                            ACTIVITY_LISTSALES);
+                } catch (Exception e) {
+                    Log.i(tag, "Failed to list sales [" + e.getMessage() + "]");
+                }
+                try {
+                    startActivityForResult(new Intent(getBaseContext(), RefreshSales.class),
+                            ACTIVITY_REFRESHSALES);
+                } catch (Exception e) {
+                    Log.i(tag, "Failed to refresh sales [" + e.getMessage() + "]");
+                }
+            }
+        });
+
+        Button bSet = (Button) findViewById(R.id.btnSettings);
+
+        bSet.setOnClickListener(new Button.OnClickListener() {
+
+            public void onClick(View v) {
+                try {
+                    // Perform action on click
+                    startActivityForResult(new Intent(getBaseContext(), ShowSettings.class),
+                            ACTIVITY_SETTINGS);
+                } catch (Exception e) {
+                    Log.i(tag, "Failed to Launch Settings [" + e.getMessage() + "]");
+                }
+            }
+        });
     }
 
     private void printCoordinates() {
@@ -162,6 +199,8 @@ public class MainActivity extends Activity {
         if (id == R.id.action_viewsales) {
             try {
                 // Perform action on click
+                startActivityForResult(new Intent(this.getBaseContext(), RefreshSales.class),
+                        this.ACTIVITY_REFRESHSALES);
                 startActivityForResult(new Intent(this.getBaseContext(), ViewSales.class),
                         this.ACTIVITY_LISTSALES);
             } catch (Exception e) {

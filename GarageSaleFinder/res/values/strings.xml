@@ -16,5 +16,15 @@
     <string name="action_settings">Settings</string>
     <string name="action_viewsales">View sales</string>
     <string name="lbl_distance">Radius around your location (km):</string>
+    <string name="btnSettings">Settings</string>
+    <string name="btnOpenSaleList">Open Sale List</string>
+    <string name="lblCopyright">  ISCG7424 – Mobile Software Development
+  \nAssignment 3: Garage Sales Finder
+  \nStudent: Paul Shalley		(ID:1402195)
+  \nStudent: Renato De Mendonca	(ID:1422497)
+  \nStudent: Sergey Seriakov 	(ID:1405156)
+  \nTeacher: Dr. John Casey
+  \nUnitec, Auckland. 2014
+</string>
 
 </resources>
